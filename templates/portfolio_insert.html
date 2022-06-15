@@ -1,0 +1,7 @@
+{% extends 'portfolio_list.html' %}
+{% block content %}
+{% for d in data%}
+{{d}}<br>
+{%endfor%}
+<a href='/portfolio/result'>결과보기</a>
+{% endblock %}
