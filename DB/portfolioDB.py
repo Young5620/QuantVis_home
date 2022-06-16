@@ -4,20 +4,6 @@ import pymysql
 from flask_login import UserMixin
 import urllib
 from urllib.request import urlopen
-from bs4 import BeautifulSoup
-import re
-from datetime import timedelta
-import os, requests
-from pykrx import stock
-import yfinance as yf
-import datetime
-import matplotlib.pyplot as plt
-from pandas_datareader import data as pdr
-import pandas as pd
-import numpy as np
-import matplotlib.ticker as ticker
-from mpl_finance import candlestick2_ohlc
-import io
 
 class Portfolio():  
     # config         
@@ -39,20 +25,6 @@ class Portfolio():
         try:
             conn = pymysql.connect(**self.config)
             cursor = conn.cursor()
-            # with self.conn.cursor() as cur:
-            #     sql = """
-            #         CREATE TABLE IF NOT EXISTS `portfolio` (
-            #         `email` VARCHAR(20) NOT NULL COLLATE 'utf8mb3_general_ci',
-            #         `pfname` VARCHAR(20) NOT NULL DEFAULT 'pfname_default' COLLATE 'utf8mb3_general_ci',
-            #         `ticker_name` VARCHAR(30) NOT NULL COLLATE 'utf8mb3_general_ci',
-            #         `ticker_code` VARCHAR(8) NOT NULL COLLATE 'utf8mb3_general_ci',
-            #         `order_state` VARCHAR(6) NOT NULL COLLATE 'utf8mb3_general_ci',
-            #         `stock_cnt` VARCHAR(20) NOT NULL DEFAULT '1' COLLATE 'utf8mb3_general_ci',
-            #         `price` VARCHAR(20) NOT NULL COLLATE 'utf8mb3_general_ci'
-            #         )
-            #         COLLATE='utf8mb3_general_ci';
-            #         """
-            #     cur.execute(sql)
             sql = f"INSERT INTO portfolio (email,pfname,ticker_name,ticker_code,order_state,stock_cnt,price) VALUES ('{email}','{pfname}','{ticker_name}','{ticker_code}','{order_state}','{stock_cnt}','{price}')"
             result = cursor.execute(sql)                
             if result == 1 : conn.commit()

@@ -71,9 +71,10 @@ def portfolio() :
             pass
         else:
             data['F_company'].append(ticker[0])
-            data['K_price'].append(quantvis.select_price(i))
+            data['F_price'].append(quantvis.select_price(k))
     
-    print(data['F_price'],data['K_price'])
+    #print("data['F_price'] : ",data['F_price'])
+    #print("data['K_price'] : ",data['K_price'])
     
     return render_template('portfolio.html', data=data)
 
@@ -139,14 +140,9 @@ def portfolio_result() :
             F_stock['price'].append(rl[6])
             F_stock['stocks'].append(rl[5])
     now = datetime.datetime.now()
-    before_1_day = now - datetime.timedelta(days=1)
     before_3_day = now - datetime.timedelta(days=3)
-    before_7_day = now - datetime.timedelta(days=7)
     before_30_day = now - datetime.timedelta(days=30)
     str_now = str(now)
-    str_before_7_day = str(before_7_day)
-    str_before_1_day = str(before_1_day)
-    str_before_3_day = str(before_3_day)
     str_before_30_day = str(before_30_day)
         
             
@@ -234,7 +230,7 @@ def portfolio_result() :
             
             print(stock_dict['code'])
             for i in range(len(stock_dict['code'])):
-                df_data_K = pdr.get_data_yahoo(stock_dict['code'][i]+'.KS',str_before_30_day,str_now)
+                df_data_K = pdr.get_data_yahoo(stock_dict['code'][i]+'.KS',before_30_day,now)
                 df_data_K.drop('Adj Close',axis=1,inplace=True)
                 df_data_K['전일종가'] = df_data_K['Close'].shift()    # default 1 : 하루(1일) 차분, 아래로 내리기
                 df_data_K['전일대비변동가격'] = df_data_K['Close'] - df_data_K['전일종가']
@@ -262,7 +258,7 @@ def portfolio_result() :
             # 해외주식
             print(str(stock_dict['code']).upper())
             for i in range(len(stock_dict['code'])):
-                df_data_F = pdr.get_data_yahoo(stock_dict['code'][i],str_before_30_day,str_now)
+                df_data_F = pdr.get_data_yahoo(stock_dict['code'][i],before_30_day,now)
                 df_data_F.drop('Adj Close',axis=1,inplace=True)
                 df_data_F['전일종가'] = df_data_F['Close'].shift()    # default 1 : 하루(1일) 차분, 아래로 내리기
                 df_data_F['전일대비변동가격'] = df_data_F['Close'] - df_data_F['전일종가']
