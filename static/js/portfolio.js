@@ -309,10 +309,3 @@ function clear_row_del(obj) {
   }
   cnt -=1;
 }
-
-var prices = document.getElementsByClassName('ticker')
-for(var i=0;i<prices.length;i++){
-  console.log(prices.item(i).value)
-}
-
-console.log()
