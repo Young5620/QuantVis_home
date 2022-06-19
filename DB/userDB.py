@@ -7,7 +7,7 @@ class User():
                 'host':'127.0.0.1',
                 'user':'quantvis',
                 'password':'quantvis',
-                'database':'quantvis',
+                'database':'quantvis_portfolio',
                 'port':3306,
                 'charset':'utf8',
                 'use_unicode':True

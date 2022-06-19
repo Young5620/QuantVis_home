@@ -231,7 +231,7 @@ def kakao_callback():
         }).json()
 
     if 'error' in auth_info:
-        return redirect('/')  # 오류발생할때 보낼 페이지로 이동시키기!!!!!!
+        return redirect(url_for('login'))  # 오류발생할때 보낼 페이지로 이동시키기!!!!!!
 
     user_info = requests.post(
         url="https://kapi.kakao.com/v2/user/me",
